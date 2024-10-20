@@ -2,7 +2,6 @@ import requests
 import gzip
 from sys import argv
 
-# filename = input('Enter file location (VCF): ')
 filename1 = argv[1]
 filename2 = argv[2]
 
@@ -60,18 +59,19 @@ match_nf_count = 0
 
 print('Analyzing results...')
 
-for database_id, values in vcf_data2.items():
-    sig2 = values[0]
-    rating2 = values[1]
-    if database_id in vcf_data1:
-        vals = vcf_data1[database_id]
-        sig1 = vals[0]
-        rating1 = vals[1]
-        if sig1 == sig2 and rating1 == rating2:
-            match_f_count += 1
-        else:
-            match_nf_count += 1
-            print(f'Match not found.\nDatabase id: {database_id}\nSignificance observed: {sig2}\nSignificane expected: {sig1}\nRating observed: {rating2}\nRating expected: {rating1}')
+with open('analysis_VCF.txt', 'w') as file_n:
+    for database_id, values in vcf_data2.items():
+        sig2 = values[0]
+        rating2 = values[1]
+        if database_id in vcf_data1:
+            vals = vcf_data1[database_id]
+            sig1 = vals[0]
+            rating1 = vals[1]
+            if sig1 == sig2 and rating1 == rating2:
+                match_f_count += 1
+            else:
+                match_nf_count += 1
+                file_n.write(f'Match not found.\nDatabase id: {database_id}\nSignificance observed: {sig2}\nSignificane expected: {sig1}\nRating observed: {rating2}\nRating expected: {rating1}\n')
 
-
-print(f'Matches found: {match_f_count}\nMatches not found: {match_nf_count}\nTotal variants: {match_nf_count + match_f_count}')
+with open("VCF_auto_verification_results.txt", 'w') as file_name:
+    file_name.write(f'Matches found: {match_f_count}\nMatches not found: {match_nf_count}\nTotal variants: {match_nf_count + match_f_count}\n')
