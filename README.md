@@ -7,5 +7,5 @@ Auto verification for updates to clinvar database when used in bioinfomatics pip
 3. second VCF - original database
 4. code for result txt files
 ```Bash
-python3 db_auto_ver.py ~/Downloads/clinvar_20240909.vcf.gz ~/Downloads/clinvar_20240909_processed_cincseq_roi_echtvar_annotated.vcf.gz
+python3 db_auto_ver.py -c ~/Downloads/clinvar_20240909.vcf.gz -p ~/Downloads/clinvar_20240909_processed_cincseq_roi_echtvar_annotated.vcf.gz
 ```
