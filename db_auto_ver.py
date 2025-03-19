@@ -22,9 +22,9 @@ def main():
                 cln_revstat = ''
 
                 for item in info:
-                    if 'CLNSIG' in item:
+                    if 'CLNSIG=' in item: # This is picking up items with CLNSIGSCV fields as well otherwise, if not specified with =
                         cln_sig = item.split('=')[1]
-                    if 'CLNREVSTAT' in item:
+                    if 'CLNREVSTAT=' in item:
                         cln_revstat = item.split('=')[1]
 
                 vcf_data1[database_id] = [cln_sig, cln_revstat]
@@ -71,7 +71,7 @@ def main():
                     match_f_count += 1
                 else:
                     match_nf_count += 1
-                    file_n.write(f'Match not found.\nDatabase id: {database_id}\nSignificance observed: {sig2}\nSignificane expected: {sig1}\nRating observed: {rating2}\nRating expected: {rating1}\n')
+                    file_n.write(f'Match not found.\nDatabase id: {database_id}\nSignificance observed: {sig2}\nSignificance expected: {sig1}\nRating observed: {rating2}\nRating expected: {rating1}\n')
 
     with open("VCF_auto_verification_results.txt", 'w') as file_name:
         file_name.write(f'Matches found: {match_f_count}\nMatches not found: {match_nf_count}\nTotal variants: {match_nf_count + match_f_count}\n')
